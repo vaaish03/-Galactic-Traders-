@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galactic Traders - Blockchain Space Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: linear-gradient(135deg, #0a0a2a 0%, #1a1a3a 50%, #0c1445 100%);
+            color: #e0e0ff;
+            min-height: 100vh;
+        }
+        
+        .orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .glow-text {
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.7), 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+        
+        .neon-border {
+            border: 2px solid #00ffff;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3), inset 0 0 10px rgba(0, 255, 255, 0.1);
+        }
+        
+        .space-bg {
+            background: url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/acfcb39d-f46a-4201-91b6-93187e2af42a.png') no-repeat center center;
+            background-size: cover;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px) rotateX(5deg);
+            box-shadow: 0 15px 30px rgba(0, 255, 255, 0.2);
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 255, 255, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 255, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 255, 255, 0); }
+        }
+        
+        .transaction {
+            animation: transactionSlide 0.5s ease-out;
+        }
+        
+        @keyframes transactionSlide {
+            from { transform: translateX(-100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-black/70 backdrop-blur-md border-b border-cyan-500/30 py-4 px-6">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-cyan-400 to-purple-600 flex items-center justify-center">
+                    <i class="fas fa-rocket text-white text-xl"></i>
+                </div>
+                <h1 class="orbitron text-2xl font-bold glow-text text-cyan-300">GALACTIC TRADERS</h1>
+            </div>
+            
+            <div class="flex items-center space-x-6">
+                <div class="bg-gray-800/50 rounded-lg px-4 py-2">
+                    <span class="text-sm text-gray-400">Network:</span>
+                    <span class="text-green-400 font-medium">Jupiter Testnet</span>
+                </div>
+                <button class="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105">
+                    Connect Wallet
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Left Column - Player Stats -->
+            <div class="lg:col-span-1 space-y-6">
+                <!-- Player Profile Card -->
+                <div class="bg-gray-900/70 backdrop-blur-sm rounded-xl p-6 neon-border">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-600 to-blue-500 flex items-center justify-center">
+                            <i class="fas fa-user-astronaut text-white text-2xl"></i>
+                        </div>
+                        <div>
+                            <h2 class="orbitron text-xl text-cyan-300">Commander Nova</h2>
+                            <p class="text-gray-400 text-sm">Rank: Space Trader</p>
+                            <p class="text-blue-400 text-xs font-mono">0x8a3C...7d2F</p>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-gray-800/50 rounded-lg p-3 text-center">
+                            <p class="text-gray-400 text-sm">Credits</p>
+                            <p class="orbitron text-cyan-300 text-xl">5,280</p>
+                        </div>
+                        <div class="bg-gray-800/50 rounded-lg p-3 text-center">
+                            <p class="text-gray-400 text-sm">Fuel</p>
+                            <p class="orbitron text-yellow-300 text-xl">1,250</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resources -->
+                <div class="bg-gray-900/70 backdrop-blur-sm rounded-xl p-6 neon-border">
+                    <h3 class="orbitron text-lg text-cyan-300 mb-4 flex items-center">
+                        <i class="fas fa-gem mr-2"></i> Resources
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-300">Quantum Crystals</span>
+                            <span class="orbitron text-purple-400">42</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-300">Neutronium</span>
+                            <span class="orbitron text-blue-400">18</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-300">Plasma Fuel</span>
+                            <span class="orbitron text-red-400">75</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-300">Dark Matter</span>
+                            <span class="orbitron text-indigo-400">3</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NFT Collection -->
+                <div class="bg-gray-900/70 backdrop-blur-sm rounded-xl p-6 neon-border">
+                    <h3 class="orbitron text-lg text-cyan-300 mb-4 flex items-center">
+                        <i class="fas fa-cube mr-2"></i> NFT Collection
+                    </h3>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-gray-800/50 rounded-lg p-2 text-center card-hover">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/0c98f2a7-19e8-439b-893b-57282dec2cdc.png" alt="Rare solar-powered spacecraft with golden solar panels and sleek design" class="w-full h-16 object-contain rounded mb-2" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzMzIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iOCIgZmlsbD0iI2ZmZiI+U1BBQ0VTSElQPC90ZXh0Pjwvc3ZnPg=='">
+                            <p class="text-xs text-gray-300">Solar Cruiser</p>
+                        </div>
+                        <div class="bg-gray-800/50 rounded-lg p-2 text-center card-hover">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/ca82e13c-eb77-44f2-90a9-d30264ea1ae6.png" alt="Ancient alien artifact with glowing blue crystals and metallic structure" class="w-full h-16 object-contain rounded mb-2" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzMzIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iOCIgZmlsbD0iI2ZmZiI+QVJUSUZBQ1Q8L3RleHQ+PC9zdmc+'">
+                            <p class="text-xs text-gray-300">Alien Artifact</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Center Column - Game Map & Actions -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Game Map -->
+                <div class="bg-gray-900/70 backdrop-blur-sm rounded-xl p-6 neon-border">
+                    <h3 class="orbitron text-lg text-cyan-300 mb-4 flex items-center">
+                        <i class="fas fa-globe-americas mr-2"></i> Galactic Map
+                    </h3>
+                    <div class="grid grid-cols-3 gap-4 mb-6">
+                        <div class="planet-card bg-gradient-to-br from-red-700 to-red-900 rounded-xl p-4 text-center card-hover cursor-pointer pulse">
+                            <i class="fas fa-fire text-yellow-300 text-3xl mb-2"></i>
+                            <h4 class="orbitron text-yellow-200">Inferno Prime</h4>
+                            <p class="text-xs text-gray-300">Volcanic World</p>
+                        </div>
+                        <div class="planet-card bg-gradient-to-br from-blue-700 to-blue-900 rounded-xl p-4 text-center card-hover cursor-pointer">
+                            <i class="fas fa-tint text-blue-300 text-3xl mb-2"></i>
+                            <h4 class="orbitron text-blue-200">Aquaria</h4>
+                            <p class="text-xs text-gray-300">Ocean Planet</p>
+                        </div>
+                        <div class="planet-card bg-gradient-to-br from-green-700 to-green-900 rounded-xl p-4 text-center card-hover cursor-pointer">
+                            <i class="fas fa-leaf text-green-300 text-3xl mb-2"></i>
+                            <h4 class="orbitron text-green-200">Verdant</h4>
+                            <p class="text-xs text-gray-300">Lush Jungle</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex space-x-4">
+                        <button class="action-btn flex-1 bg-gradient-to-r from-cyan-600 to-blue-700 hover:from-cyan-700 hover:to-blue-800 text-white px-4 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center">
+                            <i class="fas fa-search mr-2"></i> Explore Planet
+                        </button>
+                        <button class="action-btn flex-1 bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-purple-700 hover:to-indigo-800 text-white px-4 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center">
+                            <i class="fas fa-exchange-alt mr-2"></i> Trade Resources
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Trading Marketplace -->
+                <div class="bg-gray-900/70 backdrop-blur-sm rounded-xl p-6 neon-border">
+                    <h3 class="orbitron text-lg text-cyan-300 mb-4 flex items-center">
+                        <i class="fas fa-coins mr-2"></i> Galactic Marketplace
+                    </h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="text-left text-gray-400 text-sm">
+                                    <th class="pb-2">Resource</th>
+                                    <th class="pb-2">Price</th>
+                                    <th class="pb-2">Change</th>
+                                    <th class="pb-2 text-right">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-gray-700/50">
+                                    <td class="py-3">
+                                        <div class="flex items-center">
+                                            <div class="w-6 h-6 bg-purple-500 rounded-full mr-2"></div>
+                                            Quantum Crystals
+                                        </div>
+                                    </td>
+                                    <td class="py-3 orbitron">120 CR</td>
+                                    <td class="py-3 text-green-400">+5.2%</td>
+                                    <td class="py-3 text-right">
+                                        <button class="bg-cyan-600 hover:bg-cyan-700 text-white px-3 py-1 rounded text-sm">Buy</button>
+                                    </td>
+                                </tr>
+                                <tr class="border-b border-gray-700/50">
+                                    <td class="py-3">
+                                        <div class="flex items-center">
+                                            <div class="w-6 h-6 bg-blue-500 rounded-full mr-2"></div>
+                                            Neutronium
+                                        </div>
+                                    </td>
+                                    <td class="py-3 orbitron">85 CR</td>
+                                    <td class="py-3 text-red-400">-2.1%</td>
+                                    <td class="py-3 text-right">
+                                        <button class="bg-cyan-600 hover:bg-cyan-700 text-white px-3 py-1 rounded text-sm">Buy</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3">
+                                        <div class="flex items-center">
+                                            <div class="w-6 h-6 bg-red-500 rounded-full mr-2"></div>
+                                            Plasma Fuel
+                                        </div>
+                                    </td>
+                                    <td class="py-3 orbitron">45 CR</td>
+                                    <td class="py-3 text-green-400">+1.8%</td>
+                                    <td class="py-3 text-right">
+                                        <button class="bg-cyan-600 hover:bg-cyan-700 text-white px-3 py-1 rounded text-sm">Buy</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transaction Log -->
+        <div class="bg-gray-900/70 backdrop-blur-sm rounded-xl p-6 neon-border mt-8">
+            <h3 class="orbitron text-lg text-cyan-300 mb-4 flex items-center">
+                <i class="fas fa-list-alt mr-2"></i> Recent Transactions
+            </h3>
+            <div class="space-y-3 max-h-48 overflow-y-auto">
+                <div class="transaction bg-gray-800/50 rounded-lg p-3 flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 bg-green-500/20 rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-arrow-down text-green-400 text-sm"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm">Bought 5 Quantum Crystals</p>
+                            <p class="text-xs text-gray-400">2 minutes ago</p>
+                        </div>
+                    </div>
+                    <span class="orbitron text-green-400">-600 CR</span>
+                </div>
+                <div class="transaction bg-gray-800/50 rounded-lg p-3 flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 bg-blue-500/20 rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-compass text-blue-400 text-sm"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm">Explored Aquaria</p>
+                            <p class="text-xs text-gray-400">15 minutes ago</p>
+                        </div>
+                    </div>
+                    <span class="orbitron text-yellow-400">-50 Fuel</span>
+                </div>
+                <div class="transaction bg-gray-800/50 rounded-lg p-3 flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 bg-purple-500/20 rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-cube text-purple-400 text-sm"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm">Minted Solar Cruiser NFT</p>
+                            <p class="text-xs text-gray-400">1 hour ago</p>
+                        </div>
+                    </div>
+                    <span class="orbitron text-purple-400">NFT Minted</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black/70 backdrop-blur-md border-t border-cyan-500/30 py-6 px-6 mt-8">
+        <div class="container mx-auto text-center">
+            <p class="text-gray-400">
+                Built for Jupiter Hackathon • Powered by Blockchain Technology • 
+                <span class="text-cyan-400">v1.0.0</span>
+            </p>
+            <div class="flex justify-center space-x-4 mt-4">
+                <a href="#" class="text-gray-400 hover:text-cyan-400 transition-colors">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-cyan-400 transition-colors">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-cyan-400 transition-colors">
+                    <i class="fab fa-discord"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Game functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Connect Wallet functionality
+            const connectWalletBtn = document.querySelector('button');
+            connectWalletBtn.addEventListener('click', function() {
+                this.textContent = 'Wallet Connected';
+                this.classList.remove('bg-gradient-to-r', 'from-cyan-500', 'to-blue-600', 'hover:from-cyan-600', 'hover:to-blue-700');
+                this.classList.add('bg-green-600', 'hover:bg-green-700');
+                
+                // Show notification
+                createTransaction('Wallet connected successfully', 'success');
+            });
+
+            // Planet exploration
+            const planetCards = document.querySelectorAll('.planet-card');
+            planetCards.forEach(planet => {
+                planet.addEventListener('click', function() {
+                    const planetName = this.querySelector('h4').textContent;
+                    createTransaction(`Selected ${planetName} for exploration`, 'info');
+                });
+            });
+
+            // Action buttons
+            const actionButtons = document.querySelectorAll('.action-btn');
+            actionButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const action = this.textContent.trim();
+                    createTransaction(`Initiated ${action} action`, 'action');
+                    
+                    // Simulate blockchain transaction
+                    simulateBlockchainTx();
+                });
+            });
+
+            // Marketplace buy buttons
+            const buyButtons = document.querySelectorAll('table button');
+            buyButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const resource = this.closest('tr').querySelector('td').textContent.trim();
+                    createTransaction(`Buying ${resource}`, 'purchase');
+                    simulateBlockchainTx();
+                });
+            });
+
+            // Create transaction notification
+            function createTransaction(message, type) {
+                const transactionLog = document.querySelector('.space-y-3');
+                const colors = {
+                    success: 'green',
+                    info: 'blue',
+                    action: 'cyan',
+                    purchase: 'purple'
+                };
+                
+                const transaction = document.createElement('div');
+                transaction.className = 'transaction bg-gray-800/50 rounded-lg p-3 flex items-center justify-between';
+                transaction.innerHTML = `
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 bg-${colors[type]}-500/20 rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-${type === 'success' ? 'check' : type === 'info' ? 'info' : type === 'action' ? 'bolt' : 'shopping-cart'} text-${colors[type]}-400 text-sm"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm">${message}</p>
+                            <p class="text-xs text-gray-400">Just now</p>
+                        </div>
+                    </div>
+                    <span class="orbitron text-${colors[type]}-400">Processing...</span>
+                `;
+                
+                transactionLog.prepend(transaction);
+                
+                // Simulate confirmation after delay
+                setTimeout(() => {
+                    transaction.querySelector('span').textContent = 'Confirmed';
+                }, 2000);
+            }
+
+            // Simulate blockchain transaction
+            function simulateBlockchainTx() {
+                // Add visual effect for blockchain processing
+                const processing = document.createElement('div');
+                processing.className = 'fixed inset-0 flex items-center justify-center z-50';
+                processing.innerHTML = `
+                    <div class="bg-black/80 backdrop-blur-sm rounded-xl p-8 text-center max-w-md mx-4">
+                        <div class="w-16 h-16 mx-auto mb-4 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin"></div>
+                        <h3 class="orbitron text-cyan-300 text-xl mb-2">Processing Transaction</h3>
+                        <p class="text-gray-300">Confirming on Jupiter Blockchain...</p>
+                    </div>
+                `;
+                document.body.appendChild(processing);
+                
+                // Remove after delay
+                setTimeout(() => {
+                    document.body.removeChild(processing);
+                }, 1500);
+            }
+        });
+    </script>
+</body>
+</html>
+
